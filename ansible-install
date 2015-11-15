@@ -1,25 +1,39 @@
 #!/bin/bash
 
-if [[ "$ANSIBLE_NODE" ]]; then
-    echo "# Starting SSH deamon..."
-    /usr/sbin/sshd
+function echov {
+    if $VERBOSE; then
+        echo "$1"
+    fi
+}
+
+function evalv {
+    if $VERBOSE; then
+        eval "$1"
+    else 
+        eval "$1 &> /dev/null"
+    fi
+}
+
+if $ANSIBLE_NODE; then
+    echov "# Starting SSH deamon..."
+    evalv "/usr/sbin/sshd"
 fi
 
-echo "### Installing ansible-$ANSIBLE_VERSION ..."
+echov "### Installing ansible-$ANSIBLE_VERSION ..."
 GIT="git checkout -b $ANSIBLE_VERSION"
-echo "# $GIT"
-eval "$GIT"
+echov "# $GIT"
+evalv "$GIT"
 
 if [ ! -f "$ANSIBLE_CONFIG" ]; then
-    echo "# copy example config..."
+    echov "# copy example config..."
     CPCONF="cp examples/ansible.cfg $ANSIBLE_CONFIG"
-    echo "# $CPCONF"
-    eval "$CPCONF" 
+    echov "# $CPCONF"
+    evalv "$CPCONF" 
 fi
 
-echo "# build environment: "
-source ./hacking/env-setup
+echov "# build environment: "
+evalv "source ./hacking/env-setup"
 
-echo "have fun!"
+echov "have fun!"
 
 exec $@

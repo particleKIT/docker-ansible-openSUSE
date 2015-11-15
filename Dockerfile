@@ -9,9 +9,10 @@ RUN zypper --non-interactive in --auto-agree-with-licenses \
     python-Jinja2 python-httplib2 python-six git vim ca-certificates 
 
 ENV ANSIBLE_VERSION="stable-1.9" \
-    ANSIBLE_NODE=True \
-    ANSIBLE_CTRL=True \
-    ANSIBLE_CONFIG="/etc/ansible/ansible.cfg"
+    ANSIBLE_NODE=true \
+    ANSIBLE_CTRL=true \
+    ANSIBLE_CONFIG="/etc/ansible/ansible.cfg" \
+    VERBOSE=true
 
 RUN mkdir -p /root/.ansible && \
     mkdir -p /etc/ansible && \
