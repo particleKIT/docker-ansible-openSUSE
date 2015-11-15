@@ -1,0 +1,25 @@
+#!/bin/bash
+
+if [[ "$ANSIBLE_NODE" ]]; then
+    echo "# Starting SSH deamon..."
+    /usr/sbin/sshd
+fi
+
+echo "### Installing ansible-$ANSIBLE_VERSION ..."
+GIT="git checkout -b $ANSIBLE_VERSION"
+echo "# $GIT"
+eval "$GIT"
+
+if [ ! -f "$ANSIBLE_CONFIG" ]; then
+    echo "# copy example config..."
+    CPCONF="cp examples/ansible.cfg $ANSIBLE_CONFIG"
+    echo "# $CPCONF"
+    eval "$CPCONF" 
+fi
+
+echo "# build environment: "
+source ./hacking/env-setup
+
+echo "have fun!"
+
+exec $@
