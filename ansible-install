@@ -14,7 +14,7 @@ function evalv {
     fi
 }
 
-if $ANSIBLE_NODE; then
+if $ANSIBLE_SSH; then
     echov "# Starting SSH deamon..."
     evalv "/usr/sbin/sshd"
 fi
