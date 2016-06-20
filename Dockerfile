@@ -6,7 +6,8 @@ RUN zypper --gpg-auto-import-keys --non-interactive ref && \
 
 RUN zypper --non-interactive in --auto-agree-with-licenses \
     openssh sshpass python python-paramiko python-PyYAML \
-    python-Jinja2 python-httplib2 python-six git vim ca-certificates 
+    python-xml python-Jinja2 python-httplib2 python-six git \
+    vim ca-certificates 
 
 ENV ANSIBLE_VERSION="stable-1.9" \
     ANSIBLE_SSH=false \
