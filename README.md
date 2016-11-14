@@ -1,1 +1,1 @@
-# Dockerized Ansible - OpenSUSE
+# [DEPRECATED] Dockerized Ansible - OpenSUSE
